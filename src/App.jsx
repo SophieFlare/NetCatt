@@ -15,15 +15,14 @@ export default function App() {
       try {
 
         const res = await fetch(`${API}/track`);
-
+        const data = await res.json();
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }
 
         const data = await res.json();
 
-        console.log("SERVER RESPONSE:", data);
-
+       console.log("SERVER RESPONSE:", data);
         setServerData(data);
 
       } catch (err) {
