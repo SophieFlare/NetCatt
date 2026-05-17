@@ -5,10 +5,8 @@ export default function App() {
 
   const [serverData, setServerData] = useState(null);
 
-  // LOCAL BACKEND
-  // Works only on same Wi-Fi/LAN
-
-  const API = fetch("http://127.0.0.1:10000/track");
+  // 🌍 YOUR LIVE BACKEND (Render)
+  const API = "https://flask-backend-wq0p.onrender.com";
 
   useEffect(() => {
 
@@ -16,32 +14,20 @@ export default function App() {
 
       try {
 
-        const res = await fetch(
-          `${API}/track`
-        );
+        const res = await fetch(`${API}/track`);
 
         if (!res.ok) {
-          throw new Error(
-            `HTTP ${res.status}`
-          );
+          throw new Error(`HTTP ${res.status}`);
         }
 
-        const data =
-          await res.json();
+        const data = await res.json();
 
-        console.log(
-          "SERVER RESPONSE:",
-          data
-        );
+        console.log("SERVER RESPONSE:", data);
 
         setServerData(data);
 
       } catch (err) {
-
-        console.error(
-          "Failed to connect:",
-          err
-        );
+        console.error("Failed to connect:", err);
       }
     };
 
@@ -49,36 +35,24 @@ export default function App() {
 
   }, []);
 
-
   return (
     <>
       <Home />
 
       {serverData && (
-
         <div
           style={{
-            padding:"10px",
-            fontFamily:"monospace",
-            border:"1px solid gray",
-            margin:"20px"
+            padding: "10px",
+            fontFamily: "monospace",
+            border: "1px solid gray",
+            margin: "20px"
           }}
         >
-
-          <h3>
-            Server Response
-          </h3>
+          <h3>Server Response</h3>
 
           <pre>
-            {
-              JSON.stringify(
-                serverData,
-                null,
-                2
-              )
-            }
+            {JSON.stringify(serverData, null, 2)}
           </pre>
-
         </div>
       )}
     </>
