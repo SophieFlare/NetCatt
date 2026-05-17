@@ -5,24 +5,22 @@ export default function App() {
 
   const [serverData, setServerData] = useState(null);
 
-  // 🌍 YOUR LIVE BACKEND (Render)
   const API = "https://flask-backend-wq0p.onrender.com";
 
   useEffect(() => {
 
     const callServer = async () => {
-
       try {
 
         const res = await fetch(`${API}/track`);
-        const data = await res.json();
+
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }
 
-        const data = await res.json();
+        const data = await res.json(); // ✅ ONLY ONCE
 
-       console.log("SERVER RESPONSE:", data);
+        console.log("SERVER RESPONSE:", data);
         setServerData(data);
 
       } catch (err) {
@@ -39,14 +37,12 @@ export default function App() {
       <Home />
 
       {serverData && (
-        <div
-          style={{
-            padding: "10px",
-            fontFamily: "monospace",
-            border: "1px solid gray",
-            margin: "20px"
-          }}
-        >
+        <div style={{
+          padding: "10px",
+          fontFamily: "monospace",
+          border: "1px solid gray",
+          margin: "20px"
+        }}>
           <h3>Server Response</h3>
 
           <pre>
